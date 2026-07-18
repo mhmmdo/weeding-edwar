@@ -1,0 +1,1381 @@
+/* ==========================================================================
+   1. CSS VARIABLES (DESIGN SYSTEM TOKENS)
+   ========================================================================== */
+:root {
+    /* Color Palette */
+    --color-navy: #0D1B2A;
+    --color-navy-light: #162A40;
+    --color-cream: #F7F3EE;
+    --color-cream-dark: #EDE4D8;
+    --color-brown: #8B6B4F;
+    --color-gold: #C8A96A;
+    --color-gold-light: #E2CF9D;
+    --color-dark: #252525;
+    --color-white: #FFFFFF;
+
+    /* Semantic Colors */
+    --bg-primary: var(--color-cream);
+    --bg-secondary: var(--color-navy);
+    --text-primary: var(--color-dark);
+    --text-light: var(--color-white);
+    --text-cream: var(--color-cream);
+    --accent-color: var(--color-gold);
+
+    /* Fonts */
+    --font-heading: 'Playfair Display', Georgia, serif;
+    --font-body: 'Poppins', 'Lato', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+
+    /* Shadow & Borders */
+    --shadow-soft: 0 4px 20px rgba(0, 0, 0, 0.04);
+    --shadow-medium: 0 10px 30px rgba(0, 0, 0, 0.08);
+    --shadow-overlay: 0 -4px 30px rgba(13, 27, 42, 0.15);
+    --border-radius-large: 22px;
+    --border-radius-medium: 18px;
+    --border-radius-small: 12px;
+
+    /* Animation */
+    --transition-slow: 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+    --transition-medium: 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    --transition-fast: 0.2s ease-in-out;
+}
+
+/* ==========================================================================
+   2. RESET & BASE STYLES
+   ========================================================================== */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+}
+
+body {
+    font-family: var(--font-body);
+    background-color: #070e17;
+    /* Dark outer space background on desktop */
+    color: var(--text-primary);
+    line-height: 1.6;
+    overflow-x: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    min-height: 100vh;
+}
+
+/* Scrollbar Customization */
+::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--color-navy);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--color-gold);
+    border-radius: 3px;
+}
+
+/* ==========================================================================
+   3. TYPOGRAPHY & BUTTON COMMON
+   ========================================================================== */
+h1,
+h2,
+h3,
+h4 {
+    font-family: var(--font-heading);
+    font-weight: 700;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* Button & Link Styles */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 12px 28px;
+    font-family: var(--font-body);
+    font-size: 0.9rem;
+    font-weight: 500;
+    text-decoration: none;
+    border-radius: 999px;
+    border: none;
+    cursor: pointer;
+    min-height: 48px;
+    transition: transform var(--transition-fast), background-color var(--transition-fast), box-shadow var(--transition-fast), border-color var(--transition-fast);
+    outline: none;
+}
+
+.btn:focus-visible {
+    box-shadow: 0 0 0 3px rgba(200, 169, 106, 0.5);
+}
+
+.btn:active {
+    transform: scale(0.97);
+}
+
+.btn-primary {
+    background-color: var(--color-navy);
+    color: var(--color-white);
+    box-shadow: var(--shadow-medium);
+}
+
+.btn-primary:hover {
+    background-color: var(--color-navy-light);
+    box-shadow: 0 6px 20px rgba(13, 27, 42, 0.3);
+}
+
+.btn-outline-gold {
+    background-color: transparent;
+    color: var(--color-gold);
+    border: 1px solid var(--color-gold);
+}
+
+.btn-outline-gold:hover {
+    background-color: var(--color-gold);
+    color: var(--color-navy);
+    box-shadow: 0 4px 15px rgba(200, 169, 106, 0.2);
+}
+
+.btn-icon {
+    flex-shrink: 0;
+}
+
+/* Screen Reader Utility */
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    border: 0;
+}
+
+/* ==========================================================================
+   4. LAYOUT
+   ========================================================================== */
+.app-container {
+    width: 100%;
+    max-width: 480px;
+    /* Mobile width locked on desktop */
+    background-color: var(--bg-primary);
+    box-shadow: 0 0 50px rgba(0, 0, 0, 0.6);
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.container-inner {
+    padding: 48px 24px;
+    width: 100%;
+}
+
+.section-title {
+    font-size: clamp(1.8rem, 5vw, 2.2rem);
+    color: var(--color-navy);
+    text-align: center;
+    margin-bottom: 32px;
+    position: relative;
+}
+
+.section-title::after {
+    content: '';
+    display: block;
+    width: 40px;
+    height: 2px;
+    background-color: var(--color-gold);
+    margin: 8px auto 0;
+}
+
+/* ==========================================================================
+   5. COVER SECTION
+   ========================================================================== */
+.cover-section {
+    position: relative;
+    min-height: 100svh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    text-align: center;
+    color: var(--text-light);
+    overflow: hidden;
+    padding: 60px 24px 80px;
+}
+
+.cover-bg-wrapper {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+}
+
+#cover-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: 58% 30%;
+    /* Mengatur fokus horizontal (geser kiri/kanan) & vertikal (geser atas/bawah) */
+    transform: scale(1.09);
+    transform-origin: 58% 30%;
+}
+
+.cover-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to bottom,
+            rgba(13, 27, 42, 0.3) 0%,
+            rgba(13, 27, 42, 0.05) 40%,
+            rgba(13, 27, 42, 0.8) 100%);
+}
+
+.cover-content {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    flex-grow: 1;
+    justify-content: flex-end;
+    /* Push text and buttons to the bottom, exposing faces */
+    width: 100%;
+}
+
+.cover-header {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: absolute;
+    top: calc(1px + env(safe-area-inset-top));
+    /* Dinaikkan dari 15px ke 6px */
+    left: 0;
+    padding: 0 24px;
+    z-index: 10;
+}
+
+.btn-menu-hamburger {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background-color: var(--color-navy);
+    color: var(--color-gold);
+    border: 1px solid var(--color-gold);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    outline: none;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    transition: transform var(--transition-fast), background-color var(--transition-fast);
+}
+
+.btn-menu-hamburger:hover {
+    background-color: var(--color-navy-light);
+    transform: scale(1.05);
+}
+
+.btn-menu-hamburger:active {
+    transform: scale(0.95);
+}
+
+.cover-logo-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* NAVIGATION OVERLAY MENU */
+.nav-menu-overlay {
+    position: fixed;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%) translateY(-100%);
+    width: 100%;
+    max-width: 480px;
+    height: 100svh;
+    background-color: rgba(13, 27, 42, 0.98);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    z-index: 2000;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    border-left: 1px solid rgba(200, 169, 106, 0.2);
+    border-right: 1px solid rgba(200, 169, 106, 0.2);
+}
+
+.nav-menu-overlay.open {
+    transform: translateX(-50%) translateY(0);
+}
+
+.nav-close-btn {
+    position: absolute;
+    top: calc(15px + env(safe-area-inset-top));
+    right: 24px;
+    background: none;
+    border: none;
+    color: var(--color-cream);
+    cursor: pointer;
+    padding: 8px;
+    outline: none;
+    transition: color var(--transition-fast), transform var(--transition-fast);
+}
+
+.nav-close-btn:hover {
+    color: var(--color-gold);
+    transform: scale(1.1);
+}
+
+.nav-close-btn:focus-visible {
+    box-shadow: 0 0 0 2px var(--color-gold);
+    border-radius: 50%;
+}
+
+.nav-menu-links {
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+    text-align: center;
+}
+
+.nav-link-item {
+    font-family: var(--font-heading);
+    font-size: 1.4rem;
+    color: var(--color-cream);
+    text-decoration: none;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    transition: color var(--transition-fast), transform var(--transition-fast);
+    display: inline-block;
+}
+
+.nav-link-item:hover {
+    color: var(--color-gold);
+    transform: scale(1.05);
+}
+
+/* Caret Bouncing Animation */
+.cover-scroll-hint {
+    margin-top: 16px;
+    display: flex;
+    justify-content: center;
+    animation: bounceCaret 2s infinite;
+}
+
+@keyframes bounceCaret {
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(6px);
+    }
+}
+
+.cover-text-group {
+    margin-top: auto;
+    margin-bottom: 24px;
+    padding: 0;
+}
+
+.cover-label {
+    font-size: 0.9rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--color-cream-dark);
+    margin-bottom: 12px;
+}
+
+.cover-couple-names {
+    font-family: var(--font-heading);
+    font-size: clamp(2.2rem, 8vw, 3.2rem);
+    font-weight: 400;
+    line-height: 1.2;
+    color: var(--color-cream);
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    margin-bottom: 20px;
+}
+
+.cover-couple-names .name-groom,
+.cover-couple-names .name-bride {
+    font-style: italic;
+}
+
+.cover-couple-names .ampersand {
+    font-family: var(--font-heading);
+    font-size: clamp(1.8rem, 6vw, 2.4rem);
+    color: var(--color-gold);
+    display: block;
+    margin: 4px 0;
+    font-style: normal;
+}
+
+.cover-date-wrapper {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    margin-top: 8px;
+    width: 100%;
+}
+
+.cover-decor-line {
+    height: 1px;
+    width: 40px;
+    background-color: var(--color-gold-light);
+}
+
+.cover-date {
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+    letter-spacing: 2px;
+    color: var(--color-cream-dark);
+    font-weight: 500;
+}
+
+.cover-action-wrapper {
+    margin-top: 0;
+    padding-bottom: 28px;
+}
+
+.cover-section #btn-open-invitation {
+    background-color: var(--color-navy);
+    color: var(--color-cream);
+    border: 1px solid var(--color-gold);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+.cover-section #btn-open-invitation:hover {
+    background-color: var(--color-navy-light);
+    transform: translateY(-2px);
+}
+
+/* Curved Shape Navy bottom */
+.cover-bottom-curve {
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    width: 100%;
+    height: 80px;
+    z-index: 3;
+    pointer-events: none;
+}
+
+.cover-bottom-curve svg {
+    width: 100%;
+    height: 100%;
+}
+
+/* ==========================================================================
+   6. OPENING SECTION
+   ========================================================================== */
+.opening-section {
+    background-color: var(--color-cream);
+    text-align: center;
+}
+
+.ornament-divider {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    margin-bottom: 24px;
+}
+
+.line-gold {
+    height: 1px;
+    width: 60px;
+    background: linear-gradient(to right, transparent, var(--color-gold), transparent);
+}
+
+.icon-heart {
+    width: 14px;
+    height: 14px;
+    animation: heartbeat 2.5s infinite ease-in-out;
+}
+
+@keyframes heartbeat {
+
+    0%,
+    100% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.2);
+    }
+}
+
+.opening-greeting {
+    font-size: 1.15rem;
+    font-family: var(--font-heading);
+    font-weight: 600;
+    color: var(--color-brown);
+    margin-bottom: 16px;
+    letter-spacing: 0.5px;
+}
+
+.opening-text {
+    font-size: 0.9rem;
+    color: var(--color-dark);
+    max-width: 360px;
+    margin: 0 auto 28px;
+    line-height: 1.8;
+}
+
+.quote-box {
+    border-top: 1px solid var(--color-cream-dark);
+    border-bottom: 1px solid var(--color-cream-dark);
+    padding: 24px 12px;
+    margin: 32px auto 0;
+    max-width: 360px;
+}
+
+.quote-content {
+    font-family: var(--font-heading);
+    font-style: italic;
+    font-size: 0.95rem;
+    color: var(--color-navy-light);
+    line-height: 1.7;
+    margin-bottom: 12px;
+}
+
+.quote-source {
+    font-family: var(--font-body);
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: var(--color-brown);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* ==========================================================================
+   7. PHOTO SECTION
+   ========================================================================== */
+.photo-section {
+    background-color: var(--color-cream);
+    padding-top: 0;
+}
+
+.horizontal-photo-wrapper {
+    width: 100%;
+    aspect-ratio: 3 / 2;
+    border-radius: var(--border-radius-large);
+    overflow: hidden;
+    box-shadow: var(--shadow-medium);
+}
+
+.horizontal-photo-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 30%;
+}
+
+/* ==========================================================================
+   8. MEMPELAI SECTION (PROFIL MEMPELAI)
+   ========================================================================== */
+.mempelai-section {
+    background-color: var(--color-cream);
+}
+
+.mempelai-card {
+    background-color: var(--color-navy);
+    color: var(--text-cream);
+    border-radius: var(--border-radius-large);
+    padding: 36px 20px;
+    box-shadow: var(--shadow-medium);
+    border: 1px solid rgba(200, 169, 106, 0.2);
+    text-align: center;
+    position: relative;
+}
+
+.mempelai-card-title {
+    font-family: var(--font-heading);
+    font-size: clamp(1.6rem, 5vw, 1.8rem);
+    color: var(--color-gold-light);
+    margin-bottom: 6px;
+    font-style: italic;
+    font-weight: 500;
+}
+
+.mempelai-card-underline {
+    width: 40px;
+    height: 1px;
+    background: linear-gradient(to right, transparent, var(--color-gold), transparent);
+    margin: 0 auto 28px;
+}
+
+.mempelai-card-content {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 8px;
+}
+
+.mempelai-column {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.mempelai-shortName {
+    font-family: var(--font-heading);
+    font-size: clamp(1.15rem, 3.5vw, 1.35rem);
+    color: var(--color-white);
+    font-weight: 700;
+    margin-bottom: 6px;
+    font-style: italic;
+    letter-spacing: 0.5px;
+}
+
+.mempelai-fullName {
+    font-size: 0.72rem;
+    color: var(--color-gold-light);
+    opacity: 0.85;
+    margin-bottom: 12px;
+    line-height: 1.45;
+    max-width: 145px;
+    overflow-wrap: anywhere;
+    word-break: break-word;
+}
+
+.mempelai-parent-container {
+    font-size: 0.78rem;
+    color: var(--color-cream-dark);
+}
+
+.mempelai-parent-info {
+    font-style: italic;
+    margin-bottom: 4px;
+    color: var(--color-gold);
+    opacity: 0.9;
+}
+
+.mempelai-father,
+.mempelai-mother {
+    font-weight: 400;
+    margin-bottom: 2px;
+}
+
+/* Central initials monogram with brackets and branches */
+.mempelai-center-decor {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    width: 65px;
+    margin-top: 6px;
+}
+
+.monogram-circle-side {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-heading);
+    font-size: clamp(0.85rem, 2.5vw, 1rem);
+    color: var(--color-gold);
+    font-weight: bold;
+    margin-bottom: 6px;
+}
+
+.monogram-bracket-left,
+.monogram-bracket-right {
+    font-size: 1.15rem;
+    color: var(--color-gold-light);
+    margin: 0 4px;
+    font-weight: 400;
+}
+
+.monogram-text {
+    letter-spacing: 0.5px;
+}
+
+.monogram-leaf {
+    color: var(--color-gold);
+    opacity: 0.8;
+}
+
+/* Responsive adjustment for extra-narrow screens */
+@media (max-width: 360px) {
+    .mempelai-card-content {
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+    }
+
+    .mempelai-center-decor {
+        transform: rotate(90deg);
+        margin: 10px 0;
+    }
+
+    .mempelai-fullName {
+        max-width: none;
+    }
+}
+
+/* ==========================================================================
+   9. EVENTS SECTION (RANGKAIAN ACARA)
+   ========================================================================== */
+.acara-section {
+    background-color: var(--color-cream);
+}
+
+.events-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.event-card {
+    background-color: var(--color-white);
+    border-radius: var(--border-radius-medium);
+    padding: 28px 24px;
+    box-shadow: var(--shadow-soft);
+    border: 1px solid var(--color-cream-dark);
+    text-align: center;
+    transition: transform var(--transition-medium);
+}
+
+.event-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-medium);
+    border-color: var(--color-gold-light);
+}
+
+.event-name {
+    font-size: 1.4rem;
+    color: var(--color-navy);
+    margin-bottom: 20px;
+    position: relative;
+    display: inline-block;
+}
+
+.event-name::after {
+    content: '';
+    display: block;
+    width: 30px;
+    height: 1px;
+    background-color: var(--color-gold);
+    margin: 4px auto 0;
+}
+
+.event-details {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-bottom: 24px;
+}
+
+.event-detail-item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    font-size: 0.85rem;
+    color: var(--color-dark);
+}
+
+.event-icon {
+    color: var(--color-gold);
+    flex-shrink: 0;
+}
+
+.event-text {
+    text-align: left;
+    max-width: 280px;
+    overflow-wrap: anywhere;
+}
+
+.event-venue {
+    font-weight: 600;
+    color: var(--color-navy-light);
+}
+
+.event-address {
+    font-size: 0.8rem;
+    color: #666;
+    margin-top: 2px;
+}
+
+.event-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.event-actions .btn {
+    width: 100%;
+}
+
+/* ==========================================================================
+   10. MAP SECTION (LOKASI ACARA)
+   ========================================================================== */
+.lokasi-section {
+    background-color: var(--color-cream);
+}
+
+.lokasi-card {
+    background-color: var(--color-navy);
+    border-radius: var(--border-radius-large);
+    padding: 32px 24px 24px;
+    box-shadow: var(--shadow-medium);
+    border: 1px solid rgba(200, 169, 106, 0.2);
+    text-align: center;
+}
+
+.lokasi-info {
+    margin-bottom: 24px;
+    color: var(--text-cream);
+}
+
+.lokasi-title {
+    font-size: 1.4rem;
+    color: var(--color-gold-light);
+    margin-bottom: 12px;
+}
+
+.lokasi-venue {
+    font-size: 1.15rem;
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+
+.lokasi-address {
+    font-family: var(--font-body);
+    font-style: normal;
+    font-size: 0.85rem;
+    color: var(--color-cream-dark);
+    max-width: 320px;
+    margin: 0 auto 20px;
+    line-height: 1.7;
+}
+
+.lokasi-actions {
+    display: flex;
+    justify-content: center;
+}
+
+.map-embed-wrapper {
+    width: 100%;
+    height: 260px;
+    border-radius: var(--border-radius-medium);
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(200, 169, 106, 0.3);
+}
+
+.map-embed-wrapper iframe {
+    width: 100%;
+    height: 100%;
+    border: 0;
+}
+
+.lokasi-qrcode-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0 auto 24px;
+    padding: 12px;
+    background-color: var(--color-cream-dark);
+    border-radius: var(--border-radius-medium);
+    border: 1px solid var(--color-gold);
+    max-width: 150px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+}
+
+.qrcode-label {
+    font-size: 0.7rem;
+    color: var(--color-navy);
+    font-weight: 600;
+    margin-bottom: 6px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.qrcode-image-wrapper {
+    width: 120px;
+    height: 120px;
+    background-color: var(--color-white);
+    padding: 6px;
+    border-radius: var(--border-radius-small);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.qrcode-image-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+/* ==========================================================================
+   11. GALLERY SECTION
+   ========================================================================== */
+.galeri-section {
+    background-color: var(--color-cream);
+    text-align: center;
+}
+
+.gallery-slider-wrapper {
+    position: relative;
+    width: 100%;
+    margin-bottom: 16px;
+}
+
+.gallery-slider {
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+    gap: 16px;
+    padding: 8px 4px;
+    outline: none;
+}
+
+/* Hide default scrollbars for slider visual excellence */
+.gallery-slider::-webkit-scrollbar {
+    display: none;
+}
+
+.gallery-item {
+    flex: 0 0 85%;
+    /* Shows one photo dominantly, hinting the next */
+    scroll-snap-align: center;
+    aspect-ratio: 3 / 4;
+    border-radius: var(--border-radius-large);
+    overflow: hidden;
+    box-shadow: var(--shadow-medium);
+    cursor: pointer;
+    position: relative;
+}
+
+.gallery-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform var(--transition-medium);
+}
+
+.gallery-item:hover img {
+    transform: scale(1.03);
+}
+
+.gallery-overlay-hint {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 16px;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.6), transparent);
+    color: var(--color-white);
+    font-size: 0.75rem;
+    text-align: right;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity var(--transition-fast);
+}
+
+.gallery-item:hover .gallery-overlay-hint {
+    opacity: 1;
+}
+
+.gallery-help-text {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.75rem;
+    color: var(--color-brown);
+    margin-bottom: 16px;
+}
+
+.gallery-help-text svg {
+    animation: slideRight 1.5s infinite ease-in-out;
+}
+
+@keyframes slideRight {
+
+    0%,
+    100% {
+        transform: translateX(0);
+    }
+
+    50% {
+        transform: translateX(4px);
+    }
+}
+
+.gallery-indicators {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 8px;
+}
+
+.indicator-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: var(--color-cream-dark);
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    transition: background-color var(--transition-fast), transform var(--transition-fast);
+}
+
+.indicator-dot.active {
+    background-color: var(--color-gold);
+    transform: scale(1.2);
+}
+
+/* ==========================================================================
+   12. FOOTER SECTION (PENUTUP)
+   ========================================================================== */
+.footer-section {
+    background-color: var(--color-navy);
+    color: var(--text-cream);
+    text-align: center;
+    padding: 64px 24px 80px;
+    margin-top: auto;
+    border-top: 2px solid var(--color-gold);
+}
+
+.footer-section .closing-text {
+    font-size: 0.9rem;
+    color: var(--color-cream-dark);
+    max-width: 340px;
+    margin: 0 auto 32px;
+    line-height: 1.8;
+}
+
+.closing-thankyou {
+    font-size: 1.8rem;
+    color: var(--color-gold-light);
+    margin-bottom: 40px;
+    font-style: italic;
+}
+
+.footer-couple-monogram {
+    margin-bottom: 48px;
+}
+
+.footer-monogram {
+    font-family: var(--font-heading);
+    font-size: 2.2rem;
+    color: var(--color-gold);
+    letter-spacing: 6px;
+    margin-bottom: 8px;
+}
+
+.footer-signature {
+    font-family: var(--font-heading);
+    font-size: 1.2rem;
+    font-style: italic;
+    color: var(--color-cream);
+}
+
+.footer-divider {
+    border: 0;
+    height: 1px;
+    background: linear-gradient(to right, transparent, rgba(200, 169, 106, 0.3), transparent);
+    margin-bottom: 24px;
+}
+
+.footer-credit {
+    font-size: 0.75rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--color-gold);
+    opacity: 0.8;
+}
+
+/* ==========================================================================
+   13. FLOATING MUSIC PLAYER BUTTON
+   ========================================================================== */
+.music-floating-container {
+    position: fixed;
+    bottom: calc(20px + env(safe-area-inset-bottom));
+    left: 20px;
+    /* Pindah ke pojok kiri */
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    /* Arah deret tooltip ke kanan */
+    gap: 8px;
+    pointer-events: none;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity var(--transition-medium), transform var(--transition-medium);
+}
+
+.music-floating-container.visible {
+    pointer-events: auto;
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.btn-music {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    /* Desain Piringan Hitam Vinyl Premium dengan Guratan Konsentris */
+    background: radial-gradient(circle,
+            var(--color-gold) 15%,
+            #111 16%,
+            #111 24%,
+            #222 25%,
+            #222 32%,
+            #111 33%,
+            #111 40%,
+            #222 41%,
+            #222 48%,
+            #111 49%);
+    color: var(--color-gold);
+    border: 2px solid var(--color-gold);
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+    outline: none;
+    position: relative;
+    overflow: hidden;
+}
+
+.btn-music::after {
+    /* Efek Pantulan Cahaya Glossy pada Vinyl */
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.18) 0%, rgba(255, 255, 255, 0) 50%, rgba(0, 0, 0, 0.2) 100%);
+    pointer-events: none;
+}
+
+.btn-music:focus-visible {
+    box-shadow: 0 0 0 3px rgba(200, 169, 106, 0.6);
+}
+
+.btn-music:active {
+    transform: scale(0.92);
+}
+
+.btn-music svg {
+    width: 20px;
+    height: 20px;
+    position: relative;
+    z-index: 2;
+    /* Di atas latar belakang vinyl */
+}
+
+/* Dynamic icons based on playing state */
+.btn-music.playing .icon-music-paused {
+    display: none;
+}
+
+.btn-music.playing .icon-music-playing {
+    display: block;
+}
+
+.btn-music.paused .icon-music-playing {
+    display: none;
+}
+
+.btn-music.paused .icon-music-paused {
+    display: block;
+}
+
+/* Floating rotate animation ketika musik bermain */
+.btn-music.playing {
+    animation: rotateMusic 4s linear infinite;
+    /* Putaran piringan hitam */
+}
+
+@keyframes rotateMusic {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* Tooltip on hover (muncul ke arah kanan) */
+.music-tooltip {
+    background-color: rgba(13, 27, 42, 0.95);
+    color: var(--color-cream);
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-size: 0.7rem;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    white-space: nowrap;
+    border: 1px solid var(--color-gold);
+    opacity: 0;
+    pointer-events: none;
+    transform: translateX(-10px);
+    transition: opacity var(--transition-fast), transform var(--transition-fast);
+    box-shadow: var(--shadow-medium);
+}
+
+.music-floating-container:hover .music-tooltip {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+/* ==========================================================================
+   14. LIGHTBOX / MODAL DIALOG
+   ========================================================================== */
+.lightbox-dialog {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(13, 27, 42, 0.95);
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity var(--transition-medium);
+    padding: 24px;
+}
+
+.lightbox-dialog[aria-hidden="false"] {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.lightbox-content {
+    max-width: 90%;
+    max-height: 80%;
+    transform: scale(0.95);
+    transition: transform var(--transition-medium);
+}
+
+.lightbox-dialog[aria-hidden="false"] .lightbox-content {
+    transform: scale(1);
+}
+
+.lightbox-content img {
+    max-width: 100%;
+    max-height: 80vh;
+    object-fit: contain;
+    border-radius: var(--border-radius-small);
+    border: 2px solid var(--color-gold);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+}
+
+.lightbox-close-btn {
+    position: absolute;
+    top: 24px;
+    right: 24px;
+    background: none;
+    border: none;
+    color: var(--color-cream);
+    cursor: pointer;
+    padding: 8px;
+    outline: none;
+    transition: color var(--transition-fast), transform var(--transition-fast);
+}
+
+.lightbox-close-btn:hover {
+    color: var(--color-gold);
+    transform: scale(1.1);
+}
+
+.lightbox-close-btn:focus-visible {
+    box-shadow: 0 0 0 2px var(--color-gold);
+    border-radius: 50%;
+}
+
+/* Body lock when modal open */
+body.modal-open {
+    overflow: hidden;
+}
+
+/* ==========================================================================
+   15. REVEAL / SCROLL ANIMATIONS
+   ========================================================================== */
+.reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.reveal.active {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* ==========================================================================
+   16. REDUCED MOTION (ACCESSIBILITY FIRST)
+   ========================================================================== */
+@media (prefers-reduced-motion: reduce) {
+    html {
+        scroll-behavior: auto !important;
+    }
+
+    .reveal {
+        opacity: 1 !important;
+        transform: none !important;
+        transition: none !important;
+    }
+
+    .btn-music.playing {
+        animation: none !important;
+    }
+
+    *,
+    *::before,
+    *::after {
+        animation-delay: -1ms !important;
+        animation-duration: 1ms !important;
+        animation-iteration-count: 1 !important;
+        background-attachment: initial !important;
+        scroll-behavior: auto !important;
+        transition-duration: 0s !important;
+        transition-delay: 0s !important;
+    }
+}

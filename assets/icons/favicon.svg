@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+  <circle cx="50" cy="50" r="44" stroke="#C8A96A" stroke-width="3" fill="#0D1B2A" />
+  <circle cx="50" cy="50" r="38" stroke="#E2CF9D" stroke-width="1" fill="none" stroke-dasharray="4, 4" />
+  <text x="50%" y="58%" dominant-baseline="middle" text-anchor="middle" font-family="'Playfair Display', serif" font-size="28" font-style="italic" fill="#E2CF9D" font-weight="bold">E &amp; I</text>
+</svg>
