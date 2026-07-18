@@ -63,6 +63,32 @@ function initializeInvitation(data) {
 
     const ogImage = document.querySelector('meta[property="og:image"]');
     if (ogImage && data.images.cover) ogImage.setAttribute("content", data.images.cover);
+
+    // Render nama tamu kustom dari URL
+    renderGuestName();
+}
+
+/**
+ * Membaca nama tamu dari URL query (?saudara=... atau ?to=...)
+ */
+function renderGuestName() {
+    const urlParams = new URLSearchParams(window.location.search);
+    let guestName = urlParams.get("saudara") || urlParams.get("to");
+    
+    const guestDisplay = document.getElementById("guest-name-display");
+    
+    if (guestName) {
+        // Ganti tanda '+' dengan spasi dan bersihkan input
+        guestName = guestName.replace(/\+/g, " ");
+        if (guestDisplay) {
+            guestDisplay.textContent = guestName;
+        }
+    } else {
+        // Nama default jika parameter kosong
+        if (guestDisplay) {
+            guestDisplay.textContent = "Tamu Undangan";
+        }
+    }
 }
 
 /**
