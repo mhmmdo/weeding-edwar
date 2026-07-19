@@ -74,14 +74,14 @@ const invitationData = {
 
     images: {
         cover: "assets/images/cover.jpg",
-        coupleHorizontal: "assets/images/gallery-1.jpg",
+        coupleHorizontal: "assets/images/gallery-2.jpg",
         gallery: [
             {
                 src: "assets/images/couple-horizontal.jpg",
                 alt: "Foto Capt. Edwar dan dr. Icha - Galeri 1"
             },
             {
-                src: "assets/images/gallery-2.jpg",
+                src: "assets/images/gallery-1.jpg",
                 alt: "Foto Capt. Edwar dan dr. Icha - Galeri 2"
             }
         ]

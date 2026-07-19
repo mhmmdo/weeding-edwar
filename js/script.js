@@ -490,9 +490,6 @@ function renderGallery(data) {
         // Create Gallery Item
         const item = document.createElement("div");
         item.className = "gallery-item";
-        if (imgObj.src && imgObj.src.includes("horizontal")) {
-            item.classList.add("landscape");
-        }
         item.setAttribute("role", "button");
         item.setAttribute("tabindex", "0");
         item.setAttribute("aria-label", `Buka foto galeri ${idx + 1}`);

@@ -626,7 +626,7 @@ img {
 
 .horizontal-photo-wrapper {
     width: 100%;
-    aspect-ratio: 3 / 2;
+    aspect-ratio: 3 / 4;
     border-radius: var(--border-radius-large);
     overflow: hidden;
     box-shadow: var(--shadow-medium);
@@ -1015,16 +1015,12 @@ img {
     flex: 0 0 85%;
     /* Shows one photo dominantly, hinting the next */
     scroll-snap-align: center;
-    aspect-ratio: 3 / 4;
+    aspect-ratio: 3 / 2;
     border-radius: var(--border-radius-large);
     overflow: hidden;
     box-shadow: var(--shadow-medium);
     cursor: pointer;
     position: relative;
-}
-
-.gallery-item.landscape {
-    aspect-ratio: 3 / 2;
 }
 
 .gallery-item img {
