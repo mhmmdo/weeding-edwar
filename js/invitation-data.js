@@ -17,11 +17,11 @@ const invitationData = {
 
         bride: {
             shortName: "dr. Icha", // Nama panggilan cover
-            fullName: "dr. Mustika Hany Ristanti, S.Ked.",
+            fullName: "dr. Mustika Hany Ristanti",
             title: "dr.",
             parentInfo: "Putri dari",
             fatherName: "Bapak Mustaqim",
-            motherName: "Ibu Ratnawati (Almh.)" // Menggunakan Almh. karena wafat perempuan
+            motherName: "Ibu Ratnawati (Alm)"
         },
 
         displayName: "Captain Edwar & Dokter Icha",
@@ -98,7 +98,7 @@ const invitationData = {
     closing: {
         text: "Merupakan suatu kehormatan dan kebahagiaan bagi kami apabila Bapak, Ibu, Saudara, dan Saudari berkenan hadir untuk memberikan doa restu.",
         thankYou: "Terima kasih",
-        signature: "Captain Edwar & Dokter Icha"
+        signature: "Capt. Edwar & dr. Icha"
     }
 };
 
