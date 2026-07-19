@@ -11,8 +11,8 @@ const invitationData = {
             fullName: "Capt. Muhammad Edwar, S.E., M.M., M.Mar.",
             title: "Capt.",
             parentInfo: "Putra dari",
-            fatherName: "", // Kosongkan jika belum tersedia
-            motherName: ""  // Kosongkan jika belum tersedia
+            fatherName: "Bapak Abdul Latif", // Kosongkan jika belum tersedia
+            motherName: "Ibu Hj. Siti Hawang"  // Kosongkan jika belum tersedia
         },
 
         bride: {
