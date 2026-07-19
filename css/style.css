@@ -1002,6 +1002,7 @@ img {
     -webkit-overflow-scrolling: touch;
     gap: 16px;
     padding: 8px 4px;
+    align-items: center;
     outline: none;
 }
 
@@ -1020,6 +1021,10 @@ img {
     box-shadow: var(--shadow-medium);
     cursor: pointer;
     position: relative;
+}
+
+.gallery-item.landscape {
+    aspect-ratio: 3 / 2;
 }
 
 .gallery-item img {
