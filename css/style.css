@@ -1031,7 +1031,7 @@ img {
 }
 
 .gallery-item img.crop-top {
-    object-position: center 20%;
+    object-position: center 30%;
 }
 
 .gallery-item:hover img {
