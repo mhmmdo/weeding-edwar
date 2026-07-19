@@ -130,9 +130,9 @@ function renderCouple(data) {
     const coverCouple = document.getElementById("cover-couple-display");
     if (coverCouple) {
         coverCouple.innerHTML = `
-            <span class="name-groom">${sanitizeText(groom.shortName)}</span>
+            <span class="name-groom">${sanitizeText(groom.fullName)}</span>
             <span class="ampersand">&</span>
-            <span class="name-bride">${sanitizeText(bride.shortName)}</span>
+            <span class="name-bride">${sanitizeText(bride.fullName)}</span>
         `;
     }
 
