@@ -7,7 +7,7 @@
 const invitationData = {
     couple: {
         groom: {
-            shortName: "Capt. Muhammad Edwar, S.E., M.M., M.Mar.", // Nama panggilan cover
+            shortName: "Capt. Edwar", // Nama panggilan cover
             fullName: "Capt. Muhammad Edwar, S.E., M.M., M.Mar.",
             title: "Capt.",
             parentInfo: "Putra dari",
@@ -16,7 +16,7 @@ const invitationData = {
         },
 
         bride: {
-            shortName: "dr. Mustika Hany Ristanti, S.Ked.", // Nama panggilan cover
+            shortName: "dr. Icha", // Nama panggilan cover
             fullName: "dr. Mustika Hany Ristanti, S.Ked.",
             title: "dr.",
             parentInfo: "Putri dari",
