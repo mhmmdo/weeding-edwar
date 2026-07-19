@@ -500,6 +500,9 @@ function renderGallery(data) {
         img.alt = imgObj.alt || `Foto Galeri Pernikahan ${idx + 1}`;
         img.loading = "lazy";
         img.decoding = "async";
+        if (imgObj.src && imgObj.src.includes("gallery-1")) {
+            img.classList.add("crop-top");
+        }
 
         const overlay = document.createElement("div");
         overlay.className = "gallery-overlay-hint";
