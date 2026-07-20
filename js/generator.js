@@ -124,29 +124,46 @@ document.addEventListener("DOMContentLoaded", () => {
     const copyBtn = document.getElementById("btn-copy");
     const toast = document.getElementById("copy-toast");
 
+    function copyToClipboard() {
+        if (!resultInput || !resultInput.value) {
+            return false;
+        }
+
+        resultInput.select();
+        resultInput.setSelectionRange(0, 99999); // For mobile devices
+
+        return navigator.clipboard.writeText(resultInput.value)
+            .then(() => {
+                if (toast) {
+                    toast.classList.add("show");
+                    setTimeout(() => {
+                        toast.classList.remove("show");
+                    }, 2000);
+                }
+                return true;
+            })
+            .catch(err => {
+                console.error("Gagal menyalin teks: ", err);
+                return false;
+            });
+    }
+
     if (copyBtn) {
         copyBtn.addEventListener("click", () => {
             if (!resultInput || !resultInput.value) {
                 alert("Silakan masukkan nama tamu terlebih dahulu untuk membuat link.");
                 return;
             }
+            copyToClipboard();
+        });
+    }
 
-            resultInput.select();
-            resultInput.setSelectionRange(0, 99999); // For mobile devices
-
-            navigator.clipboard.writeText(resultInput.value)
-                .then(() => {
-                    if (toast) {
-                        toast.classList.add("show");
-                        setTimeout(() => {
-                            toast.classList.remove("show");
-                        }, 2000);
-                    }
-                })
-                .catch(err => {
-                    console.error("Gagal menyalin teks: ", err);
-                    alert("Gagal menyalin link. Silakan salin secara manual.");
-                });
+    if (resultInput) {
+        // Automatically copy link when the input text field itself is clicked
+        resultInput.addEventListener("click", () => {
+            if (resultInput.value) {
+                copyToClipboard();
+            }
         });
     }
 
