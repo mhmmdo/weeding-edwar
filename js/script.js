@@ -1135,10 +1135,6 @@ function initWishesSection(data) {
                 tidakHadirCount++;
             }
 
-            // Format Avatar Initials
-            const initials = getInitials(wish.name);
-            const avatarColor = getAvatarColor(wish.name);
-
             // Format Waktu
             const timeFormatted = formatWishDate(wish.timestamp);
 
@@ -1156,7 +1152,6 @@ function initWishesSection(data) {
             const wishItem = document.createElement("div");
             wishItem.className = "wish-item";
             wishItem.innerHTML = `
-                <div class="wish-avatar" style="background-color: ${avatarColor}">${initials}</div>
                 <div class="wish-content-wrapper">
                     <div class="wish-header">
                         <h4 class="wish-name">${sanitizeText(wish.name)}</h4>
@@ -1184,34 +1179,6 @@ function initWishesSection(data) {
         if (totalEl) totalEl.textContent = total;
         if (hadirEl) hadirEl.textContent = hadir;
         if (tidakEl) tidakEl.textContent = tidak;
-    }
-
-    /**
-     * Mendapatkan inisial nama tamu (Maksimal 2 huruf)
-     */
-    function getInitials(name) {
-        if (!name) return "?";
-        const parts = name.trim().split(/\s+/);
-        if (parts.length === 1) {
-            return parts[0].substring(0, 2).toUpperCase();
-        } else {
-            const first = parts[0].charAt(0);
-            const last = parts[parts.length - 1].charAt(0);
-            return (first + last).toUpperCase();
-        }
-    }
-
-    /**
-     * Membuat warna pastel yang konsisten untuk avatar berdasarkan nama pengirim
-     */
-    function getAvatarColor(name) {
-        let hash = 0;
-        for (let i = 0; i < name.length; i++) {
-            hash = name.charCodeAt(i) + ((hash << 5) - hash);
-        }
-        // Batasi hue antara 0 - 360, sat 45-60%, light 75-82% untuk pastel gold & soft tones
-        const h = Math.abs(hash % 360);
-        return `hsl(${h}, 50%, 78%)`;
     }
 
     /**
