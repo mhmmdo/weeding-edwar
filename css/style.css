@@ -1871,6 +1871,203 @@ body.modal-open {
         background-attachment: initial !important;
         scroll-behavior: auto !important;
         transition-duration: 0s !important;
-        transition-delay: 0s !important;
     }
+}
+
+/* ==========================================================================
+   17. INVITATION LINK GENERATOR PAGE
+   ========================================================================== */
+.generator-body {
+    background: radial-gradient(circle at top, #1B263B 0%, #0D1B2A 100%);
+    color: var(--color-cream);
+    font-family: 'Poppins', sans-serif;
+    min-height: 100vh;
+    padding: 40px 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.generator-container {
+    width: 100%;
+    max-width: 600px;
+}
+
+.generator-card {
+    background-color: rgba(13, 27, 42, 0.85);
+    border: 1px solid rgba(200, 169, 106, 0.3);
+    border-radius: var(--border-radius-large);
+    padding: 30px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    position: relative;
+    overflow: hidden;
+}
+
+.generator-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: linear-gradient(90deg, var(--color-gold-dark), var(--color-gold-light), var(--color-gold-dark));
+}
+
+.generator-header {
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+.generator-logo {
+    font-family: var(--font-heading);
+    font-size: 2rem;
+    color: var(--color-gold-light);
+    margin-bottom: 5px;
+    letter-spacing: 1px;
+}
+
+.generator-subtitle {
+    font-size: 0.85rem;
+    color: var(--color-cream-dark);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.generator-form-group {
+    margin-bottom: 18px;
+}
+
+.generator-label {
+    display: block;
+    font-size: 0.8rem;
+    color: var(--color-gold-light);
+    margin-bottom: 6px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: 500;
+}
+
+.generator-input,
+.generator-select,
+.generator-textarea {
+    width: 100%;
+    padding: 12px 16px;
+    background-color: rgba(27, 38, 59, 0.6);
+    border: 1px solid rgba(224, 225, 221, 0.2);
+    border-radius: var(--border-radius-small);
+    color: var(--color-cream);
+    font-family: inherit;
+    font-size: 0.9rem;
+    transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.generator-input:focus,
+.generator-select:focus,
+.generator-textarea:focus {
+    outline: none;
+    border-color: var(--color-gold-light);
+    box-shadow: 0 0 8px rgba(200, 169, 106, 0.25);
+    background-color: rgba(27, 38, 59, 0.9);
+}
+
+.generator-textarea {
+    resize: vertical;
+    min-height: 120px;
+    font-size: 0.85rem;
+    line-height: 1.5;
+}
+
+.generator-input-readonly {
+    background-color: rgba(13, 27, 42, 0.5);
+    border-color: rgba(200, 169, 106, 0.15);
+    cursor: default;
+}
+
+.generator-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+}
+
+@media (max-width: 480px) {
+    .generator-row {
+        grid-template-columns: 1fr;
+        gap: 0;
+    }
+}
+
+.generator-result {
+    background-color: rgba(27, 38, 59, 0.4);
+    border: 1px dashed rgba(200, 169, 106, 0.4);
+    border-radius: var(--border-radius-medium);
+    padding: 20px;
+    margin-top: 25px;
+}
+
+.generator-actions {
+    display: flex;
+    gap: 12px;
+    margin-top: 15px;
+}
+
+.generator-btn {
+    flex: 1;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 12px 20px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    border-radius: var(--border-radius-small);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    font-family: inherit;
+    text-decoration: none;
+    border: none;
+}
+
+.btn-gold {
+    background-color: var(--color-gold-dark);
+    color: #0D1B2A;
+}
+
+.btn-gold:hover {
+    background-color: var(--color-gold-light);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(200, 169, 106, 0.2);
+}
+
+.btn-whatsapp {
+    background-color: #25D366;
+    color: #FFFFFF;
+}
+
+.btn-whatsapp:hover {
+    background-color: #20BA5A;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(37, 211, 102, 0.2);
+}
+
+.toast-notification {
+    position: fixed;
+    bottom: 25px;
+    left: 50%;
+    transform: translateX(-50%) translateY(100px);
+    background-color: #1B263B;
+    border: 1px solid var(--color-gold-light);
+    color: var(--color-cream);
+    padding: 10px 24px;
+    border-radius: 50px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    z-index: 9999;
+    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+}
+
+.toast-notification.show {
+    transform: translateX(-50%) translateY(0);
 }

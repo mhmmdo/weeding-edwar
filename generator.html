@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="id" translate="no">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="robots" content="noindex, nofollow">
+    <title>Link Generator - Captain Edwar & Dokter Icha</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..700;1,400..700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- CSS Link -->
+    <link rel="stylesheet" href="css/style.css?v=1.2.0">
+</head>
+
+<body class="generator-body">
+    <div class="generator-container">
+        <div class="generator-card">
+            <div class="generator-header">
+                <h1 class="generator-logo">Edwar & Icha</h1>
+                <p class="generator-subtitle">Invitation Link Generator</p>
+            </div>
+
+            <form id="generator-form">
+                <!-- Base URL -->
+                <div class="generator-form-group">
+                    <label class="generator-label" for="base-url">Base URL Website</label>
+                    <input class="generator-input" type="url" id="base-url" placeholder="https://edwaricha.my.id/" required>
+                </div>
+
+                <!-- Guest Name -->
+                <div class="generator-form-group">
+                    <label class="generator-label" for="guest-name">Nama Tamu (Di Cover)</label>
+                    <input class="generator-input" type="text" id="guest-name" placeholder="Contoh: Bapak Suparman" required>
+                </div>
+
+                <!-- Guest Title/Position -->
+                <div class="generator-form-group">
+                    <label class="generator-label" for="guest-title">Jabatan / Gelar / Keterangan (Opsional)</label>
+                    <input class="generator-input" type="text" id="guest-title" placeholder="Contoh: Direktur Utama PT. Selebes Java Berjaya">
+                </div>
+
+                <!-- Location Selector and Code -->
+                <div class="generator-row">
+                    <div class="generator-form-group">
+                        <label class="generator-label" for="loc-select">Pilih Lokasi</label>
+                        <select class="generator-select" id="loc-select">
+                            <option value="tempat" selected>Di Tempat (Default)</option>
+                            <!-- Dynamic shortcodes from invitation-data.js will be loaded here -->
+                            <option value="kustom">-- Lokasi Kustom --</option>
+                        </select>
+                    </div>
+
+                    <!-- Custom Location Input (Hidden by default, shown if "kustom" is selected) -->
+                    <div class="generator-form-group" id="custom-loc-group" style="display: none;">
+                        <label class="generator-label" for="custom-loc">Tulis Lokasi Kustom</label>
+                        <input class="generator-input" type="text" id="custom-loc" placeholder="Contoh: Samarinda, Jakarta, dll">
+                    </div>
+                </div>
+
+                <!-- Custom WhatsApp Message Template -->
+                <div class="generator-form-group">
+                    <label class="generator-label" for="wa-template">Template Pesan WhatsApp</label>
+                    <textarea class="generator-textarea" id="wa-template">Assalamu'alaikum Wr. Wb.
+
+Kepada Yth. Bapak/Ibu/Saudara/i
+*[Nama]*
+*[Jabatan]*
+Di [Lokasi]
+
+Tanpa mengurangi rasa hormat, perkenankan kami mengundang Bapak/Ibu/Saudara/i untuk hadir di acara pernikahan kami.
+
+Berikut link undangan digital kami untuk informasi lengkap acara:
+
+[Link]
+
+Merupakan suatu kehormatan dan kebahagiaan bagi kami apabila Bapak/Ibu/Saudara/i berkenan hadir dan memberikan doa restu.
+
+Mohon maaf perihal keterbatasan jarak jika undangan dikirimkan secara digital.
+
+Terima kasih,
+*Capt. Edwar & dr. Icha*</textarea>
+                    <small style="font-size: 0.75rem; color: var(--color-cream-dark); opacity: 0.8; display: block; margin-top: 4px;">
+                        Gunakan kode placeholder: <strong>[Nama]</strong>, <strong>[Jabatan]</strong>, <strong>[Lokasi]</strong>, dan <strong>[Link]</strong>.
+                    </small>
+                </div>
+
+                <!-- Result Card -->
+                <div class="generator-result">
+                    <div class="generator-form-group" style="margin-bottom: 0;">
+                        <label class="generator-label">Link Hasil Generasi</label>
+                        <input class="generator-input generator-input-readonly" type="text" id="result-link" readonly placeholder="Link akan muncul di sini otomatis...">
+                    </div>
+
+                    <div class="generator-actions">
+                        <!-- Copy Button -->
+                        <button type="button" class="generator-btn btn-gold" id="btn-copy">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                            </svg>
+                            <span>Salin Link</span>
+                        </button>
+
+                        <!-- WhatsApp Button -->
+                        <button type="button" class="generator-btn btn-whatsapp" id="btn-whatsapp">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path>
+                            </svg>
+                            <span>Kirim WA</span>
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Floating Copy Toast -->
+    <div class="toast-notification" id="copy-toast">Link berhasil disalin!</div>
+
+    <!-- Loading Data and Logic -->
+    <script src="js/invitation-data.js?v=1.2.0"></script>
+    <script src="js/generator.js?v=1.2.0"></script>
+</body>
+
+</html>
