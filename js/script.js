@@ -21,7 +21,7 @@ document.addEventListener("DOMContentLoaded", () => {
     renderLocation(data);
     renderGallery(data);
     initWishesSection(data);
-    
+
     // Inisialisasi pengendali interaksi
     const audioController = initializeMusic(data);
     initializeLightbox();
@@ -45,7 +45,7 @@ function sanitizeText(str) {
  */
 function initializeInvitation(data) {
     const coupleNames = data.couple.displayName || "Capt. Edwar & dr. Icha";
-    
+
     // Update Title
     document.title = `Undangan Pernikahan ${coupleNames}`;
 
@@ -76,7 +76,7 @@ function renderGuestName() {
     const urlParams = new URLSearchParams(window.location.search);
     let guestName = urlParams.get("saudara") || urlParams.get("to");
     let locVal = urlParams.get("loc") || urlParams.get("u") || urlParams.get("di") || urlParams.get("place") || urlParams.get("location");
-    
+
     // Parse custom format like to=Wahyu?=smd or to=Wahyu?smd
     if (guestName) {
         if (guestName.includes("?=")) {
@@ -96,10 +96,10 @@ function renderGuestName() {
             }
         }
     }
-    
+
     const guestDisplay = document.getElementById("guest-name-display");
     const locationDisplay = document.getElementById("guest-location-display");
-    
+
     // Render guest name
     if (guestName) {
         guestName = guestName.replace(/\+/g, " ").trim();
@@ -111,17 +111,17 @@ function renderGuestName() {
             guestDisplay.textContent = "Tamu Undangan";
         }
     }
-    
+
     // Render guest location
     let locationText = "Di Tempat";
     if (locVal) {
         locVal = locVal.replace(/\+/g, " ").trim();
         const codeKey = locVal.toLowerCase();
-        
+
         // Find mapped location
         const codes = (window.invitationData && window.invitationData.location && window.invitationData.location.codes) || {};
         let mappedLocation = codes[codeKey];
-        
+
         if (mappedLocation) {
             locationText = "Di " + mappedLocation;
         } else {
@@ -129,7 +129,7 @@ function renderGuestName() {
             const formattedLoc = locVal.split(' ')
                 .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
                 .join(' ');
-            
+
             if (formattedLoc.toLowerCase().startsWith("di ")) {
                 locationText = formattedLoc;
             } else {
@@ -137,7 +137,7 @@ function renderGuestName() {
             }
         }
     }
-    
+
     if (locationDisplay) {
         locationDisplay.textContent = locationText;
     }
@@ -380,7 +380,7 @@ function renderEvents(data) {
 
         // Render maps & calendar buttons conditional
         let buttonsHTML = "";
-        
+
         // Google Calendar button
         if (data.wedding.dateISO) {
             buttonsHTML += `
@@ -684,8 +684,8 @@ function initializeMusic(data) {
     const controller = {
         enabled: false,
         playing: false,
-        play: function() {},
-        pause: function() {}
+        play: function () { },
+        pause: function () { }
     };
 
     if (!audio || !musicBtn) return controller;
@@ -697,13 +697,13 @@ function initializeMusic(data) {
     }
 
     controller.enabled = true;
-    
+
     // Tampilkan player secara langsung jika aktif
     if (musicContainer) {
         musicContainer.classList.add("visible");
         musicContainer.removeAttribute("aria-hidden");
     }
-    
+
     // Set file path lagu secara dinamis
     audio.src = data.music.file;
     audio.loop = true;
@@ -730,7 +730,7 @@ function initializeMusic(data) {
     }
 
     // Hubungkan fungsi aksi pemutaran musik
-    controller.play = function() {
+    controller.play = function () {
         audio.play()
             .then(() => {
                 updateMusicUI(true);
@@ -741,7 +741,7 @@ function initializeMusic(data) {
             });
     };
 
-    controller.pause = function() {
+    controller.pause = function () {
         audio.pause();
         updateMusicUI(false);
     };
@@ -769,7 +769,7 @@ function initializeMusic(data) {
     const startAutoplayOnInteraction = () => {
         if (!controller.playing && data.music.autoplayAfterOpen) {
             controller.play();
-            
+
             // Periksa kembali jika sudah sukses berjalan, matikan pendengar event
             if (controller.playing || !audio.paused) {
                 removeAutoplayListeners();
@@ -800,7 +800,7 @@ function initializeLightbox() {
     const lightbox = document.getElementById("lightbox");
     const lightboxImg = document.getElementById("lightbox-img");
     const lightboxClose = document.getElementById("lightbox-close");
-    
+
     if (!slider || !lightbox || !lightboxImg || !lightboxClose) return;
 
     let triggerElement = null; // Menyimpan elemen gambar yang diklik untuk pemulihan fokus
@@ -810,10 +810,10 @@ function initializeLightbox() {
         triggerElement = triggerEl;
         lightboxImg.src = imgSrc;
         lightboxImg.alt = imgAlt || "Foto Galeri Pernikahan";
-        
+
         lightbox.setAttribute("aria-hidden", "false");
         document.body.classList.add("modal-open");
-        
+
         // Memindahkan fokus ke tombol close demi aksesibilitas
         setTimeout(() => {
             lightboxClose.focus();
@@ -827,7 +827,7 @@ function initializeLightbox() {
     function closeLightbox() {
         lightbox.setAttribute("aria-hidden", "true");
         document.body.classList.remove("modal-open");
-        
+
         // Mengembalikan fokus ke elemen asal
         if (triggerElement) {
             triggerElement.focus();
@@ -929,7 +929,7 @@ function initializeNavigationMenu() {
         navOverlay.setAttribute("aria-hidden", "false");
         btnToggle.setAttribute("aria-expanded", "true");
         document.body.classList.add("modal-open");
-        
+
         // Trap focus to close button
         setTimeout(() => {
             btnClose.focus();
@@ -943,7 +943,7 @@ function initializeNavigationMenu() {
         navOverlay.setAttribute("aria-hidden", "true");
         btnToggle.setAttribute("aria-expanded", "false");
         document.body.classList.remove("modal-open");
-        
+
         btnToggle.focus();
         document.removeEventListener("keydown", handleMenuKeydown);
     }
@@ -952,13 +952,13 @@ function initializeNavigationMenu() {
         if (e.key === "Escape") {
             closeMenu();
         }
-        
+
         // simple focus trap
         if (e.key === "Tab") {
             const focusables = navOverlay.querySelectorAll("a, button");
             const first = focusables[0];
             const last = focusables[focusables.length - 1];
-            
+
             if (e.shiftKey) {
                 if (document.activeElement === first) {
                     last.focus();
@@ -979,7 +979,7 @@ function initializeNavigationMenu() {
     navLinks.forEach(link => {
         link.addEventListener("click", (e) => {
             closeMenu();
-            
+
             const targetId = link.getAttribute("href");
             const targetEl = document.querySelector(targetId);
             if (targetEl) {
@@ -999,7 +999,7 @@ function initWishesSection(data) {
     const wishesLoader = document.getElementById("wishes-loader");
     const wishNameInput = document.getElementById("wish-name");
     const wishesConfig = data.wishesConfig || { enabled: true, sheetUrl: "" };
-    
+
     // Modal Elements
     const wishesModal = document.getElementById("wishes-modal");
     const wishesModalCloseBtn = document.getElementById("btn-close-wishes-modal");
@@ -1045,7 +1045,7 @@ function initWishesSection(data) {
     if (wishesModalCloseBtn) {
         wishesModalCloseBtn.addEventListener("click", closeWishesSuccessModal);
     }
-    
+
     if (wishesModal) {
         wishesModal.addEventListener("click", (e) => {
             if (e.target === wishesModal) {
@@ -1063,12 +1063,12 @@ function initWishesSection(data) {
     // Event Listener Form Submission
     wishesForm.addEventListener("submit", async (e) => {
         e.preventDefault();
-        
+
         const btnSubmit = document.getElementById("wish-submit-btn");
         const btnText = document.getElementById("btn-text");
         const iconSend = btnSubmit.querySelector(".icon-send");
         const iconSpinner = btnSubmit.querySelector(".icon-loading-spinner");
-        
+
         const name = wishNameInput.value.trim();
         const attendance = document.getElementById("wish-attendance").value;
         const message = document.getElementById("wish-message").value.trim();
@@ -1097,24 +1097,24 @@ function initWishesSection(data) {
                     message: message,
                     attendance: attendance
                 });
-                
+
                 const response = await fetch(`${wishesConfig.sheetUrl}?${queryParams.toString()}`, {
                     method: "GET",
                     mode: "cors"
                 });
-                
+
                 const result = await response.json();
                 if (result.status !== "success") {
                     throw new Error(result.message || "Gagal menyimpan ke Google Sheets");
                 }
-                
+
                 // Optimistic/Instant UI Update: Tambahkan ucapan baru ke array internal paling atas
                 currentWishes.unshift(newWish);
                 renderWishes(currentWishes);
-                
+
                 // Reset input pesan saja, biarkan nama terisi
                 document.getElementById("wish-message").value = "";
-                
+
                 // Scroll daftar ucapan ke bagian teratas agar pengirim melihat ucapannya langsung
                 wishesList.scrollTo({ top: 0, behavior: "smooth" });
 
@@ -1146,7 +1146,7 @@ function initWishesSection(data) {
                     mode: "cors"
                 });
                 const result = await response.json();
-                
+
                 if (result.status === "success" && result.data) {
                     currentWishes = result.data;
                 } else {
@@ -1170,7 +1170,7 @@ function initWishesSection(data) {
      */
     function renderWishes(wishes) {
         wishesList.innerHTML = "";
-        
+
         // Hapus loader jika masih ada
         if (wishesLoader) wishesLoader.style.display = "none";
 
@@ -1246,23 +1246,23 @@ function initWishesSection(data) {
         try {
             const date = new Date(dateStr);
             if (isNaN(date.getTime())) return "";
-            
+
             // Format relatif singkat untuk waktu yang sangat baru
             const now = new Date();
             const diffMs = now - date;
             const diffMins = Math.floor(diffMs / 60000);
             const diffHours = Math.floor(diffMs / 3600000);
-            
+
             if (diffMins < 1) return "Baru saja";
             if (diffMins < 60) return `${diffMins} menit lalu`;
             if (diffHours < 24) return `${diffHours} jam lalu`;
-            
+
             // Format tanggal lengkap Bahasa Indonesia
-            const options = { 
-                day: 'numeric', 
-                month: 'short', 
-                year: 'numeric', 
-                hour: '2-digit', 
+            const options = {
+                day: 'numeric',
+                month: 'short',
+                year: 'numeric',
+                hour: '2-digit',
                 minute: '2-digit'
             };
             return date.toLocaleDateString('id-ID', options).replace('pukul', '').trim();

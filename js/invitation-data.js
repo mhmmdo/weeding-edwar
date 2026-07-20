@@ -21,7 +21,7 @@ const invitationData = {
             title: "dr.",
             parentInfo: "Putri dari",
             fatherName: "Bapak Mustaqim",
-            motherName: "Ibu Ratnawati (Alm)"
+            motherName: "Ibu Ratnawati (Almh)"
         },
 
         displayName: "Captain Edwar & Dokter Icha",
