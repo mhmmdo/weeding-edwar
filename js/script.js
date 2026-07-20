@@ -76,6 +76,7 @@ function renderGuestName() {
     const urlParams = new URLSearchParams(window.location.search);
     let guestName = urlParams.get("saudara") || urlParams.get("to");
     let locVal = urlParams.get("loc") || urlParams.get("u") || urlParams.get("di") || urlParams.get("place") || urlParams.get("location");
+    let guestTitle = urlParams.get("j") || urlParams.get("jabatan") || urlParams.get("title");
 
     // Parse custom format like to=Wahyu?=smd or to=Wahyu?smd
     if (guestName) {
@@ -97,7 +98,28 @@ function renderGuestName() {
         }
     }
 
+    // Parse location code from guestTitle if present (e.g. j=Direktur Utama?jkt)
+    if (guestTitle) {
+        if (guestTitle.includes("?=")) {
+            const parts = guestTitle.split("?=");
+            guestTitle = parts[0];
+            if (!locVal) {
+                locVal = parts[1];
+            }
+        } else if (guestTitle.includes("?")) {
+            const parts = guestTitle.split("?");
+            guestTitle = parts[0];
+            if (!locVal) {
+                locVal = parts[1];
+                if (locVal.startsWith("=")) {
+                    locVal = locVal.substring(1);
+                }
+            }
+        }
+    }
+
     const guestDisplay = document.getElementById("guest-name-display");
+    const titleDisplay = document.getElementById("guest-title-display");
     const locationDisplay = document.getElementById("guest-location-display");
 
     // Render guest name
@@ -109,6 +131,20 @@ function renderGuestName() {
     } else {
         if (guestDisplay) {
             guestDisplay.textContent = "Tamu Undangan";
+        }
+    }
+
+    // Render guest title / position
+    if (guestTitle && guestTitle.trim() !== "") {
+        guestTitle = guestTitle.replace(/\+/g, " ").trim();
+        if (titleDisplay) {
+            titleDisplay.textContent = guestTitle;
+            titleDisplay.style.display = "block";
+        }
+    } else {
+        if (titleDisplay) {
+            titleDisplay.textContent = "";
+            titleDisplay.style.display = "none";
         }
     }
 

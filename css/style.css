@@ -494,6 +494,16 @@ img {
     letter-spacing: 0.5px;
 }
 
+.guest-title {
+    font-size: 0.72rem;
+    color: var(--color-cream);
+    margin: 2px 0 6px;
+    font-weight: 500;
+    opacity: 0.9;
+    letter-spacing: 0.5px;
+    line-height: 1.3;
+}
+
 .guest-sublabel {
     font-size: 0.65rem;
     color: var(--color-cream-dark);
