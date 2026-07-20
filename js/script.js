@@ -20,6 +20,7 @@ document.addEventListener("DOMContentLoaded", () => {
     renderEvents(data);
     renderLocation(data);
     renderGallery(data);
+    initWishesSection(data);
     
     // Inisialisasi pengendali interaksi
     const audioController = initializeMusic(data);
@@ -936,4 +937,312 @@ function initializeNavigationMenu() {
             }
         });
     });
+}
+
+/**
+ * Mengelola inisialisasi, pemuatan, pengiriman, dan perenderan kartu ucapan & RSVP
+ */
+function initWishesSection(data) {
+    const wishesForm = document.getElementById("wishes-form");
+    const wishesList = document.getElementById("wishes-list");
+    const wishesLoader = document.getElementById("wishes-loader");
+    const wishNameInput = document.getElementById("wish-name");
+    const wishesConfig = data.wishesConfig || { enabled: true, sheetUrl: "" };
+    
+    // Modal Elements
+    const wishesModal = document.getElementById("wishes-modal");
+    const wishesModalCloseBtn = document.getElementById("btn-close-wishes-modal");
+
+    if (!wishesForm || !wishesList) return;
+
+    // Autofill nama tamu dari parameter URL
+    const urlParams = new URLSearchParams(window.location.search);
+    let guestName = urlParams.get("saudara") || urlParams.get("to");
+    if (guestName && wishNameInput) {
+        wishNameInput.value = guestName.replace(/\+/g, " ");
+    }
+
+    // Modal Control Functions
+    function showWishesSuccessModal() {
+        if (wishesModal) {
+            wishesModal.classList.add("visible");
+            wishesModal.setAttribute("aria-hidden", "false");
+            document.body.classList.add("modal-open");
+            if (wishesModalCloseBtn) {
+                setTimeout(() => wishesModalCloseBtn.focus(), 100);
+            }
+        }
+    }
+
+    function closeWishesSuccessModal() {
+        if (wishesModal) {
+            wishesModal.classList.remove("visible");
+            wishesModal.setAttribute("aria-hidden", "true");
+            document.body.classList.remove("modal-open");
+            const btnSubmit = document.getElementById("wish-submit-btn");
+            if (btnSubmit) btnSubmit.focus();
+        }
+    }
+
+    if (wishesModalCloseBtn) {
+        wishesModalCloseBtn.addEventListener("click", closeWishesSuccessModal);
+    }
+    
+    if (wishesModal) {
+        wishesModal.addEventListener("click", (e) => {
+            if (e.target === wishesModal) {
+                closeWishesSuccessModal();
+            }
+        });
+    }
+
+    // Array internal untuk menyimpan ucapan saat ini
+    let currentWishes = [];
+
+    // Memuat ucapan
+    loadWishes();
+
+    // Event Listener Form Submission
+    wishesForm.addEventListener("submit", async (e) => {
+        e.preventDefault();
+        
+        const btnSubmit = document.getElementById("wish-submit-btn");
+        const btnText = document.getElementById("btn-text");
+        const iconSend = btnSubmit.querySelector(".icon-send");
+        const iconSpinner = btnSubmit.querySelector(".icon-loading-spinner");
+        
+        const name = wishNameInput.value.trim();
+        const attendance = document.getElementById("wish-attendance").value;
+        const message = document.getElementById("wish-message").value.trim();
+
+        if (!name || !message) return;
+
+        // Set status loading di tombol submit
+        if (btnSubmit) btnSubmit.disabled = true;
+        if (btnText) btnText.textContent = "Mengirim...";
+        if (iconSend) iconSend.style.display = "none";
+        if (iconSpinner) iconSpinner.style.display = "inline-block";
+
+        const newWish = {
+            name: name,
+            message: message,
+            attendance: attendance,
+            timestamp: new Date().toISOString()
+        };
+
+        try {
+            if (wishesConfig.enabled && wishesConfig.sheetUrl) {
+                // Kirim ke Google Sheets API via GET (action=add)
+                const queryParams = new URLSearchParams({
+                    action: "add",
+                    name: name,
+                    message: message,
+                    attendance: attendance
+                });
+                
+                const response = await fetch(`${wishesConfig.sheetUrl}?${queryParams.toString()}`, {
+                    method: "GET",
+                    mode: "cors"
+                });
+                
+                const result = await response.json();
+                if (result.status !== "success") {
+                    throw new Error(result.message || "Gagal menyimpan ke Google Sheets");
+                }
+                
+                // Optimistic/Instant UI Update: Tambahkan ucapan baru ke array internal paling atas
+                currentWishes.unshift(newWish);
+                renderWishes(currentWishes);
+                
+                // Reset input pesan saja, biarkan nama terisi
+                document.getElementById("wish-message").value = "";
+                
+                // Scroll daftar ucapan ke bagian teratas agar pengirim melihat ucapannya langsung
+                wishesList.scrollTo({ top: 0, behavior: "smooth" });
+
+                // Tampilkan modal sukses
+                showWishesSuccessModal();
+            } else {
+                alert("Sistem penerimaan ucapan belum dikonfigurasi (sheetUrl kosong).");
+            }
+        } catch (error) {
+            console.error("Error submitting wish:", error);
+            alert("Gagal mengirim ucapan. Silakan periksa koneksi internet Anda.");
+        } finally {
+            // Kembalikan tombol submit ke keadaan semula
+            if (btnSubmit) btnSubmit.disabled = false;
+            if (btnText) btnText.textContent = "Kirim Ucapan";
+            if (iconSend) iconSend.style.display = "inline-block";
+            if (iconSpinner) iconSpinner.style.display = "none";
+        }
+    });
+
+    /**
+     * Memuat daftar ucapan dari Google Sheets (jika dikonfigurasi) atau Default Wishes
+     */
+    async function loadWishes() {
+        try {
+            if (wishesConfig.enabled && wishesConfig.sheetUrl) {
+                const response = await fetch(wishesConfig.sheetUrl, {
+                    method: "GET",
+                    mode: "cors"
+                });
+                const result = await response.json();
+                
+                if (result.status === "success" && result.data) {
+                    currentWishes = result.data;
+                } else {
+                    throw new Error("Response database gagal");
+                }
+            } else {
+                currentWishes = data.defaultWishes || [];
+            }
+        } catch (error) {
+            console.warn("Gagal memuat ucapan dari Google Sheets. Menggunakan data default:", error);
+            currentWishes = data.defaultWishes || [];
+        } finally {
+            // Sembunyikan loader dan render
+            if (wishesLoader) wishesLoader.style.display = "none";
+            renderWishes(currentWishes);
+        }
+    }
+
+    /**
+     * Merender data ucapan ke elemen DOM list ucapan dan memperbarui statistik
+     */
+    function renderWishes(wishes) {
+        wishesList.innerHTML = "";
+        
+        // Hapus loader jika masih ada
+        if (wishesLoader) wishesLoader.style.display = "none";
+
+        if (!wishes || wishes.length === 0) {
+            wishesList.innerHTML = `<div class="wishes-empty">Belum ada ucapan. Jadilah yang pertama memberikan doa restu!</div>`;
+            updateStats(0, 0, 0);
+            return;
+        }
+
+        let totalCount = wishes.length;
+        let hadirCount = 0;
+        let tidakHadirCount = 0;
+
+        wishes.forEach(wish => {
+            // Hitung status kehadiran
+            const att = (wish.attendance || "").toLowerCase();
+            if (att === "hadir") {
+                hadirCount++;
+            } else if (att === "tidak_hadir" || att === "tidak") {
+                tidakHadirCount++;
+            }
+
+            // Format Avatar Initials
+            const initials = getInitials(wish.name);
+            const avatarColor = getAvatarColor(wish.name);
+
+            // Format Waktu
+            const timeFormatted = formatWishDate(wish.timestamp);
+
+            // Format Badge Kehadiran
+            let badgeClass = "wish-badge-hadir";
+            let badgeText = "Hadir";
+            if (att === "tidak_hadir" || att === "tidak") {
+                badgeClass = "wish-badge-tidak_hadir";
+                badgeText = "Tidak Hadir";
+            } else if (att === "ragu") {
+                badgeClass = "wish-badge-ragu";
+                badgeText = "Ragu-ragu";
+            }
+
+            const wishItem = document.createElement("div");
+            wishItem.className = "wish-item";
+            wishItem.innerHTML = `
+                <div class="wish-avatar" style="background-color: ${avatarColor}">${initials}</div>
+                <div class="wish-content-wrapper">
+                    <div class="wish-header">
+                        <h4 class="wish-name">${sanitizeText(wish.name)}</h4>
+                        <span class="wish-badge ${badgeClass}">${badgeText}</span>
+                    </div>
+                    <span class="wish-time">${timeFormatted}</span>
+                    <p class="wish-message">${sanitizeText(wish.message)}</p>
+                </div>
+            `;
+            wishesList.appendChild(wishItem);
+        });
+
+        // Update Statistik Kehadiran
+        updateStats(totalCount, hadirCount, tidakHadirCount);
+    }
+
+    /**
+     * Memperbarui visual statistik jumlah ucapan & kehadiran di UI
+     */
+    function updateStats(total, hadir, tidak) {
+        const totalEl = document.getElementById("stat-count-total");
+        const hadirEl = document.getElementById("stat-count-hadir");
+        const tidakEl = document.getElementById("stat-count-tidak");
+
+        if (totalEl) totalEl.textContent = total;
+        if (hadirEl) hadirEl.textContent = hadir;
+        if (tidakEl) tidakEl.textContent = tidak;
+    }
+
+    /**
+     * Mendapatkan inisial nama tamu (Maksimal 2 huruf)
+     */
+    function getInitials(name) {
+        if (!name) return "?";
+        const parts = name.trim().split(/\s+/);
+        if (parts.length === 1) {
+            return parts[0].substring(0, 2).toUpperCase();
+        } else {
+            const first = parts[0].charAt(0);
+            const last = parts[parts.length - 1].charAt(0);
+            return (first + last).toUpperCase();
+        }
+    }
+
+    /**
+     * Membuat warna pastel yang konsisten untuk avatar berdasarkan nama pengirim
+     */
+    function getAvatarColor(name) {
+        let hash = 0;
+        for (let i = 0; i < name.length; i++) {
+            hash = name.charCodeAt(i) + ((hash << 5) - hash);
+        }
+        // Batasi hue antara 0 - 360, sat 45-60%, light 75-82% untuk pastel gold & soft tones
+        const h = Math.abs(hash % 360);
+        return `hsl(${h}, 50%, 78%)`;
+    }
+
+    /**
+     * Memformat tanggal ISO menjadi teks deskriptif yang rapi
+     */
+    function formatWishDate(dateStr) {
+        try {
+            const date = new Date(dateStr);
+            if (isNaN(date.getTime())) return "";
+            
+            // Format relatif singkat untuk waktu yang sangat baru
+            const now = new Date();
+            const diffMs = now - date;
+            const diffMins = Math.floor(diffMs / 60000);
+            const diffHours = Math.floor(diffMs / 3600000);
+            
+            if (diffMins < 1) return "Baru saja";
+            if (diffMins < 60) return `${diffMins} menit lalu`;
+            if (diffHours < 24) return `${diffHours} jam lalu`;
+            
+            // Format tanggal lengkap Bahasa Indonesia
+            const options = { 
+                day: 'numeric', 
+                month: 'short', 
+                year: 'numeric', 
+                hour: '2-digit', 
+                minute: '2-digit'
+            };
+            return date.toLocaleDateString('id-ID', options).replace('pukul', '').trim();
+        } catch (e) {
+            return "";
+        }
+    }
 }

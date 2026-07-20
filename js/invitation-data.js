@@ -99,7 +99,14 @@ const invitationData = {
         text: "Merupakan suatu kehormatan dan kebahagiaan bagi kami apabila Bapak, Ibu, Saudara, dan Saudari berkenan hadir untuk memberikan doa restu.",
         thankYou: "Terima kasih",
         signature: "Capt. Edwar & dr. Icha"
-    }
+    },
+
+    wishesConfig: {
+        sheetUrl: "https://script.google.com/macros/s/AKfycbzs6x_osgjSrAkfP3vky83xcnMo3YEp_zERNWXazgIqU9A8rmWA4xjqbEs-XIb8bA-BWQ/exec", // Tempelkan URL Google Apps Script Web App Anda di sini untuk menghubungkan ke Google Sheets
+        enabled: true
+    },
+
+    defaultWishes: []
 };
 
 // Pastikan data ini terekspos di browser secara global
