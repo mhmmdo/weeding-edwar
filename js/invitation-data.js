@@ -69,7 +69,19 @@ const invitationData = {
         venue: "Gedung/Aula Jamhuri Aisyah",
         address: "Jl. Trans Kalimantan, Handil Bakti, Kec. Alalak, Kabupaten Barito Kuala, Kalimantan Selatan 70581",
         mapUrl: "https://www.google.com/maps/search/?api=1&query=Gedung%2FAula+Jamhuri+Aisyah",
-        mapEmbedUrl: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3983.43870960813!2d114.6101680749716!3d-3.240529996734545!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2de43db4c64aa2c3%3A0xd3a9a6bb83f027e3!2sGedung%2FAula%20Jamhuri%20Aisyah!5e0!3m2!1sid!2sid!4v1784388477521!5m2!1sid!2sid"
+        mapEmbedUrl: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3983.43870960813!2d114.6101680749716!3d-3.240529996734545!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2de43db4c64aa2c3%3A0xd3a9a6bb83f027e3!2sGedung%2FAula%20Jamhuri%20Aisyah!5e0!3m2!1sid!2sid!4v1784388477521!5m2!1sid!2sid",
+        // Custom location codes mapping for guest cover card
+        codes: {
+            smd: "Samarinda",
+            bjm: "Banjarmasin",
+            bjb: "Banjarbaru",
+            mtp: "Martapura",
+            plb: "Pelaihari",
+            jkt: "Jakarta",
+            sby: "Surabaya",
+            bdg: "Bandung",
+            mks: "Makassar"
+        }
     },
 
     images: {

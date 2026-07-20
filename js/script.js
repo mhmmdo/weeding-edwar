@@ -75,20 +75,71 @@ function initializeInvitation(data) {
 function renderGuestName() {
     const urlParams = new URLSearchParams(window.location.search);
     let guestName = urlParams.get("saudara") || urlParams.get("to");
+    let locVal = urlParams.get("loc") || urlParams.get("u") || urlParams.get("di") || urlParams.get("place") || urlParams.get("location");
+    
+    // Parse custom format like to=Wahyu?=smd or to=Wahyu?smd
+    if (guestName) {
+        if (guestName.includes("?=")) {
+            const parts = guestName.split("?=");
+            guestName = parts[0];
+            if (!locVal) {
+                locVal = parts[1];
+            }
+        } else if (guestName.includes("?")) {
+            const parts = guestName.split("?");
+            guestName = parts[0];
+            if (!locVal) {
+                locVal = parts[1];
+                if (locVal.startsWith("=")) {
+                    locVal = locVal.substring(1);
+                }
+            }
+        }
+    }
     
     const guestDisplay = document.getElementById("guest-name-display");
+    const locationDisplay = document.getElementById("guest-location-display");
     
+    // Render guest name
     if (guestName) {
-        // Ganti tanda '+' dengan spasi dan bersihkan input
-        guestName = guestName.replace(/\+/g, " ");
+        guestName = guestName.replace(/\+/g, " ").trim();
         if (guestDisplay) {
             guestDisplay.textContent = guestName;
         }
     } else {
-        // Nama default jika parameter kosong
         if (guestDisplay) {
             guestDisplay.textContent = "Tamu Undangan";
         }
+    }
+    
+    // Render guest location
+    let locationText = "Di Tempat";
+    if (locVal) {
+        locVal = locVal.replace(/\+/g, " ").trim();
+        const codeKey = locVal.toLowerCase();
+        
+        // Find mapped location
+        const codes = (window.invitationData && window.invitationData.location && window.invitationData.location.codes) || {};
+        let mappedLocation = codes[codeKey];
+        
+        if (mappedLocation) {
+            locationText = "Di " + mappedLocation;
+        } else {
+            // Capitalize first letters of raw location
+            const formattedLoc = locVal.split(' ')
+                .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+                .join(' ');
+            
+            if (formattedLoc.toLowerCase().startsWith("di ")) {
+                locationText = formattedLoc;
+            } else {
+                locationText = "Di " + formattedLoc;
+            }
+        }
+    }
+    
+    if (locationDisplay) {
+        locationDisplay.textContent = locationText;
     }
 }
 
@@ -958,8 +1009,15 @@ function initWishesSection(data) {
     // Autofill nama tamu dari parameter URL
     const urlParams = new URLSearchParams(window.location.search);
     let guestName = urlParams.get("saudara") || urlParams.get("to");
-    if (guestName && wishNameInput) {
-        wishNameInput.value = guestName.replace(/\+/g, " ");
+    if (guestName) {
+        if (guestName.includes("?=")) {
+            guestName = guestName.split("?=")[0];
+        } else if (guestName.includes("?")) {
+            guestName = guestName.split("?")[0];
+        }
+        if (wishNameInput) {
+            wishNameInput.value = guestName.replace(/\+/g, " ").trim();
+        }
     }
 
     // Modal Control Functions
