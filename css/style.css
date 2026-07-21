@@ -414,7 +414,7 @@ img {
 
 .cover-couple-names {
     font-family: var(--font-heading);
-    font-size: clamp(1.4rem, 5.5vw, 2.0rem);
+    font-size: clamp(1.2rem, 4.4vw, 1.0rem);
     font-weight: 400;
     line-height: 1.2;
     color: var(--color-cream);
@@ -1524,8 +1524,13 @@ body.modal-open {
 }
 
 @keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
 }
 
 /* Stats Summary */
@@ -1638,6 +1643,7 @@ body.modal-open {
         opacity: 0;
         transform: translateY(12px);
     }
+
     to {
         opacity: 1;
         transform: translateY(0);
@@ -1798,9 +1804,12 @@ body.modal-open {
 }
 
 @keyframes scaleCheckmark {
-    0%, 100% {
+
+    0%,
+    100% {
         transform: none;
     }
+
     50% {
         transform: scale3d(1.1, 1.1, 1);
     }
