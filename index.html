@@ -26,7 +26,7 @@
         rel="stylesheet">
 
     <!-- CSS Link -->
-    <link rel="stylesheet" href="css/style.css?v=1.2.2">
+    <link rel="stylesheet" href="css/style.css?v=1.2.3">
 
     <!-- Favicon (SVG) -->
     <link rel="icon" type="image/svg+xml" href="assets/icons/favicon.svg">
@@ -321,7 +321,8 @@
         <section id="wishes" class="wishes-section reveal" aria-labelledby="heading-wishes">
             <div class="container-inner">
                 <h2 id="heading-wishes" class="section-title">Ucapan &amp; Doa Restu</h2>
-                <p class="section-subtitle">Berikan doa restu Anda dan konfirmasikan kehadiran Anda pada hari bahagia kami.</p>
+                <p class="section-subtitle">Berikan doa restu Anda dan konfirmasikan kehadiran Anda pada hari bahagia
+                    kami.</p>
 
                 <!-- Form Card -->
                 <div class="wishes-card wishes-form-card">
@@ -329,7 +330,8 @@
                         <!-- Name Field -->
                         <div class="form-group">
                             <label for="wish-name" class="form-label">Nama Lengkap</label>
-                            <input type="text" id="wish-name" class="form-control" placeholder="Nama Anda" required maxLength="50">
+                            <input type="text" id="wish-name" class="form-control" placeholder="Nama Anda" required
+                                maxLength="50">
                         </div>
 
                         <!-- Attendance / RSVP Field -->
@@ -347,16 +349,21 @@
                         <!-- Message Field -->
                         <div class="form-group">
                             <label for="wish-message" class="form-label">Ucapan &amp; Doa</label>
-                            <textarea id="wish-message" class="form-control form-textarea" placeholder="Tulis ucapan dan doa terbaik Anda..." required maxLength="500" rows="4"></textarea>
+                            <textarea id="wish-message" class="form-control form-textarea"
+                                placeholder="Tulis ucapan dan doa terbaik Anda..." required maxLength="500"
+                                rows="4"></textarea>
                         </div>
 
                         <!-- Submit Button -->
                         <button type="submit" id="wish-submit-btn" class="btn btn-primary btn-submit-wish">
-                            <svg class="btn-icon icon-send" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <svg class="btn-icon icon-send" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                 <line x1="22" y1="2" x2="11" y2="13"></line>
                                 <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
                             </svg>
-                            <svg class="btn-icon icon-loading-spinner" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" style="display: none;">
+                            <svg class="btn-icon icon-loading-spinner" width="18" height="18" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"
+                                stroke-linejoin="round" style="display: none;">
                                 <circle cx="12" cy="12" r="10"></circle>
                                 <path d="M12 2a10 10 0 0 1 10 10"></path>
                             </svg>
@@ -387,7 +394,9 @@
                     <div class="wishes-list" id="wishes-list" aria-live="polite">
                         <!-- Wishes cards will be rendered dynamically here -->
                         <div class="wishes-loading" id="wishes-loader">
-                            <svg class="loader-spinner" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--color-gold)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                            <svg class="loader-spinner" width="28" height="28" viewBox="0 0 24 24" fill="none"
+                                stroke="var(--color-gold)" stroke-width="3" stroke-linecap="round"
+                                stroke-linejoin="round">
                                 <circle cx="12" cy="12" r="10"></circle>
                                 <path d="M12 2a10 10 0 0 1 10 10"></path>
                             </svg>
@@ -437,17 +446,19 @@
     </div>
 
     <!-- WISHES SUCCESS MODAL -->
-    <div id="wishes-modal" class="wishes-modal-overlay" role="dialog" aria-modal="true" aria-label="Notifikasi Pengiriman Ucapan" aria-hidden="true">
+    <div id="wishes-modal" class="wishes-modal-overlay" role="dialog" aria-modal="true"
+        aria-label="Notifikasi Pengiriman Ucapan" aria-hidden="true">
         <div class="wishes-modal-content">
             <div class="wishes-modal-icon-wrapper">
                 <svg viewBox="0 0 52 52" class="wishes-checkmark-svg" aria-hidden="true">
-                    <circle cx="26" cy="26" r="25" fill="none" class="wishes-checkmark-circle"/>
-                    <path fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8" class="wishes-checkmark-check"/>
+                    <circle cx="26" cy="26" r="25" fill="none" class="wishes-checkmark-circle" />
+                    <path fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8" class="wishes-checkmark-check" />
                 </svg>
             </div>
             <h3 class="wishes-modal-title">Terima Kasih</h3>
             <p class="wishes-modal-message">Ucapan &amp; doa restu Anda berhasil dikirim.</p>
-            <button type="button" id="btn-close-wishes-modal" class="btn btn-primary wishes-modal-btn" aria-label="Tutup Notifikasi">Tutup</button>
+            <button type="button" id="btn-close-wishes-modal" class="btn btn-primary wishes-modal-btn"
+                aria-label="Tutup Notifikasi">Tutup</button>
         </div>
     </div>
 
