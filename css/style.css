@@ -408,7 +408,7 @@ img {
     font-size: 0.9rem;
     letter-spacing: 3px;
     text-transform: uppercase;
-    color: var(--color-cream-dark);
+    color: var(--color-white);
     margin-bottom: 12px;
 }
 
@@ -432,7 +432,7 @@ img {
 .cover-couple-names .ampersand {
     font-family: var(--font-heading);
     font-size: clamp(1.5rem, 5.5vw, 2.0rem);
-    color: #F39C12;
+    color: var(--color-white);
     display: block;
     margin: 4px 0;
     font-style: normal;
@@ -527,14 +527,14 @@ img {
     transform: translateY(-2px);
 }
 
-/* Monogram Logo override to match orange theme */
+/* Monogram Logo override to match white accents */
 .monogram-crown-logo path,
 .monogram-crown-logo circle {
-    fill: #F39C12 !important;
+    fill: var(--color-white) !important;
 }
 
 .monogram-crown-logo text {
-    fill: #F39C12 !important;
+    fill: var(--color-white) !important;
 }
 
 /* Curved Shape Navy bottom */
