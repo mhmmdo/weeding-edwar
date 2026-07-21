@@ -414,10 +414,10 @@ img {
 
 .cover-couple-names {
     font-family: var(--font-heading);
-    font-size: clamp(0.9rem, 3.3vw, 0.6rem);
+    font-size: clamp(1.1rem, 4.5vw, 1.6rem);
     font-weight: 400;
-    line-height: 1.2;
-    color: var(--color-cream);
+    line-height: 1.25;
+    color: var(--color-gold-light);
     display: flex;
     flex-direction: column;
     gap: 4px;
@@ -431,8 +431,8 @@ img {
 
 .cover-couple-names .ampersand {
     font-family: var(--font-heading);
-    font-size: clamp(1.8rem, 6vw, 2.4rem);
-    color: var(--color-gold);
+    font-size: clamp(1.5rem, 5.5vw, 2.0rem);
+    color: var(--color-cream);
     display: block;
     margin: 4px 0;
     font-style: normal;
