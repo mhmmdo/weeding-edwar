@@ -527,15 +527,7 @@ img {
     transform: translateY(-2px);
 }
 
-/* Monogram Logo override to match white accents */
-.monogram-crown-logo path,
-.monogram-crown-logo circle {
-    fill: var(--color-white) !important;
-}
 
-.monogram-crown-logo text {
-    fill: var(--color-white) !important;
-}
 
 /* Curved Shape Navy bottom */
 .cover-bottom-curve {
